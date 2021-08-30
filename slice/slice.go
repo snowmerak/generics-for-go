@@ -1,4 +1,4 @@
-package zx
+package slice
 
 import (
 	"errors"
