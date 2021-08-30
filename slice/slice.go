@@ -2,6 +2,7 @@ package slice
 
 import (
 	"errors"
+	"fmt"
 	"math/rand"
 	"sort"
 )
@@ -207,14 +208,45 @@ func Chunk[T any](slice []T, size int) [][]T {
 	return result
 }
 
-func Zip[T any](sliceA, sliceB []T) [][]T {
-	min := len(sliceA)
-	if len(sliceB) < min {
-		min = len(sliceB)
+func Zip[T any](slices ...[]T) [][]T {
+	if len(slices) == 0 {
+		return nil
+	}
+	min := len(slices[0])
+	for _, v := range slices[1:] {
+		if len(v) < min {
+			min = len(v)
+		}
 	}
 	result := make([][]T, min)
 	for i := 0; i < min; i++ {
-		result[i] = []T{sliceA[i], sliceB[i]}
+		result[i] = make([]T, len(slices))
+		for j, v := range slices {
+			result[i][j] = v[i]
+		}
+	}
+	return result
+}
+
+func JoinToString[T any](slice []T, sep string) string {
+	result := ""
+	for i, v := range slice {
+		if i != 0 {
+			result += sep
+		}
+		result += fmt.Sprintf("%v", v)
+	}
+	return result
+}
+
+func Unique[T comparable](slice []T) []T {
+	result := make([]T, 0)
+	cache := map[T]bool{}
+	for _, v := range slice {
+		if !cache[v] {
+			result = append(result, v)
+			cache[v] = true
+		}
 	}
 	return result
 }

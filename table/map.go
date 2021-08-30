@@ -84,3 +84,11 @@ func Random[K comparable, V any](m map[K]V) (rk K, rv V) {
 	}
 	return rk, rv
 }
+
+func FromSlices[K comparable, V any](ks []K, vs []V) map[K]V {
+	r := make(map[K]V)
+	for i := 0; i < len(ks) && i < len(vs); i++ {
+		r[ks[i]] = vs[i]
+	}
+	return r
+}
