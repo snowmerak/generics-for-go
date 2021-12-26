@@ -1,7 +1,6 @@
 package slice
 
 import (
-	"errors"
 	"fmt"
 	"math/rand"
 	"sort"
@@ -88,40 +87,40 @@ func FilterIndex[T any](slice []T, f func(int) bool) []T {
 	return result
 }
 
-func FirstOf[T any](slice []T, f func(T) bool) (r T, err error) {
+func FirstOf[T any](slice []T, f func(T) bool) (r T) {
 	for _, v := range slice {
 		if f(v) {
-			return v, nil
+			return v
 		}
 	}
-	return r, errors.New("First: not found")
+	return r
 }
 
-func FirstIndexOf[T any](slice []T, f func(T) bool) (int, error) {
+func FirstIndexOf[T any](slice []T, f func(T) bool) int {
 	for i, v := range slice {
 		if f(v) {
-			return i, nil
+			return i
 		}
 	}
-	return -1, errors.New("First: not found")
+	return -1
 }
 
-func LastOf[T any](slice []T, f func(T) bool) (r T, err error) {
+func LastOf[T any](slice []T, f func(T) bool) (r T) {
 	for i := len(slice) - 1; i >= 0; i-- {
 		if f(slice[i]) {
-			return slice[i], nil
+			return slice[i]
 		}
 	}
-	return r, errors.New("Last: not found")
+	return r
 }
 
-func LastIndexOf[T any](slice []T, f func(T) bool) (int, error) {
+func LastIndexOf[T any](slice []T, f func(T) bool) int {
 	for i := len(slice) - 1; i >= 0; i-- {
 		if f(slice[i]) {
-			return i, nil
+			return i
 		}
 	}
-	return -1, errors.New("Last: not found")
+	return -1
 }
 
 func Reverse[T any](slice []T) []T {
@@ -149,9 +148,9 @@ func GroupBy[T any, K comparable](slice []T, f func(T) K) map[K][]T {
 	return result
 }
 
-func Max[T any](slice []T, f func(T, T) int) (r T, err error) {
+func Max[T any](slice []T, f func(T, T) int) (r T) {
 	if len(slice) == 0 {
-		return r, errors.New("Max: empty slice")
+		return r
 	}
 	r = slice[0]
 	for _, v := range slice {
@@ -159,12 +158,12 @@ func Max[T any](slice []T, f func(T, T) int) (r T, err error) {
 			r = v
 		}
 	}
-	return r, err
+	return r
 }
 
-func Min[T any](slice []T, f func(T, T) int) (r T, err error) {
+func Min[T any](slice []T, f func(T, T) int) (r T) {
 	if len(slice) == 0 {
-		return r, errors.New("Min: empty slice")
+		return r
 	}
 	r = slice[0]
 	for _, v := range slice {
@@ -172,7 +171,7 @@ func Min[T any](slice []T, f func(T, T) int) (r T, err error) {
 			r = v
 		}
 	}
-	return r, err
+	return r
 }
 
 func Random[T any](slice []T) T {
