@@ -44,7 +44,7 @@ func FromMapValue[K comparable, V comparable](m map[K]V) Set[V] {
 }
 
 func ToSlice[T comparable](s Set[T]) []T {
-	slice := []T{}
+	slice := make([]T, 0, len(s))
 	for k := range s {
 		slice = append(slice, k)
 	}
