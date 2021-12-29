@@ -26,6 +26,10 @@ func Success[T any](data T) Result[T] {
 	return Result[T]{value: data}
 }
 
+func Ok[T any](data T) Result[T] {
+	return Result[T]{value: data}
+}
+
 func Failed[T any](err error) Result[T] {
 	return Result[T]{value: err}
 }
