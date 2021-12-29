@@ -16,6 +16,10 @@ func Failed[T any](err error) *Result[T] {
 	return &Result[T]{value: err}
 }
 
+func Err[T any](err error) *Result[T] {
+	return &Result[T]{value: err}
+}
+
 func (r *Result[T]) Replace(fn func(T) *Result[T]) {
 	if r.Ok() {
 		n := fn(r.Unwrap())
