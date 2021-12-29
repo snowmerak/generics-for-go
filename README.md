@@ -76,11 +76,11 @@ func main() {
 
 	fmt.Println()
 
-	b := result.Success(100)
+	a = result.Success(100)
 
-	fmt.Printf("ok: %v\n", b.Ok())
-	fmt.Printf("err: %v\n", b.Err())
-	fmt.Printf("value: %v\n", b.Unwrap())
+	fmt.Printf("ok: %v\n", a.Ok())
+	fmt.Printf("err: %v\n", a.Err())
+	fmt.Printf("value: %v\n", a.Unwrap())
 }
 ```
 
@@ -110,10 +110,10 @@ func main() {
 
 	fmt.Println()
 
-	b := option.None[float64]()
+	a = option.None[string]()
 
-	fmt.Printf("ok: %v\n", b.Ok())
-	fmt.Printf("value: %v\n", b.Unwrap())
+	fmt.Printf("ok: %v\n", a.Ok())
+	fmt.Printf("value: %v\n", a.Unwrap())
 }
 ```
 
