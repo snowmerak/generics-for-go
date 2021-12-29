@@ -66,9 +66,61 @@ A high order functions collection for golang
 4. Result[T].Unwrap() T
 5. Result[T].Err() error
 
+```go
+func main() {
+	a := result.Failed[int](errors.New("new error"))
+
+	fmt.Printf("ok: %v\n", a.Ok())
+	fmt.Printf("err: %v\n", a.Err())
+	fmt.Printf("value: %v\n", a.Unwrap())
+
+	fmt.Println()
+
+	b := result.Success(100)
+
+	fmt.Printf("ok: %v\n", b.Ok())
+	fmt.Printf("err: %v\n", b.Err())
+	fmt.Printf("value: %v\n", b.Unwrap())
+}
+```
+
+```bash
+ok: false
+err: new error
+value: 0
+
+ok: true
+err: <nil>
+value: 100
+```
+
 ## Option
 
 1. Some(T) Result[T]
 2. None() Result[T]
 3. Result[T].Ok() bool
 4. Result[T].Unwrap() T
+
+```go
+func main() {
+	a := option.Some("hello!")
+
+	fmt.Printf("ok: %v\n", a.Ok())
+	fmt.Printf("value: %v\n", a.Unwrap())
+
+	fmt.Println()
+
+	b := option.None[float64]()
+
+	fmt.Printf("ok: %v\n", b.Ok())
+	fmt.Printf("value: %v\n", b.Unwrap())
+}
+```
+
+```bash
+ok: true
+value: hello!
+
+ok: false
+value: 0
+```
