@@ -1,6 +1,6 @@
-# zx
+# Generics for go
 
-A high order functions collection for golang
+A useful generic codes for go
 
 ## Slice
 
