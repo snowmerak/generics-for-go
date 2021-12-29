@@ -57,3 +57,18 @@ A high order functions collection for golang
 8. Foreach
 9. Random
 10. FromSlices
+
+## Result
+
+1. Success(T) Result[T]
+2. Failed(error) Result[T]
+3. Result[T].Ok() bool
+4. Result[T].Unwrap() T
+5. Result[T].Err() error
+
+## Option
+
+1. Some(T) Result[T]
+2. None() Result[T]
+3. Result[T].Ok() bool
+4. Result[T].Unwrap() T
