@@ -11,7 +11,7 @@ type Chain[T, R any] struct {
 	list []any
 }
 
-func From[T, R any](list ...any) result.Result[*Chain[T, R]] {
+func From[T, R any](list ...any) *result.Result[*Chain[T, R]] {
 	if len(list) == 0 {
 		return result.Failed[*Chain[T, R]](errors.New("list is empty"))
 	}
