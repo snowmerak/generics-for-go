@@ -96,8 +96,6 @@ value: 100
 
 ## Option
 
-`I do not recommand using option`
-
 1. Some(T) Result[T]
 2. None() Result[T]
 3. Result[T].Ok() bool
