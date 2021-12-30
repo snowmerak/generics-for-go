@@ -29,7 +29,7 @@ if !noneInt.Ok() {
 }
 ```
 
-## Optional Parameter
+## Default Parameter
 
 ```go
 func Add(a *option.Option[int], b *option.Option[int]) int {
