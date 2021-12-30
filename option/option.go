@@ -29,7 +29,7 @@ func (o *Option[T]) UnwrapOr(defaultValue T) T {
 	return defaultValue
 }
 
-func (o *Option[T]) Replace(fn func(T) (T, error)) {
+func (o *Option[T]) Map(fn func(T) (T, error)) {
 	if o.Ok() {
 		value, err := fn(o.Unwrap())
 		if err != nil {
@@ -40,7 +40,7 @@ func (o *Option[T]) Replace(fn func(T) (T, error)) {
 	}
 }
 
-func (o *Option[T]) ReplaceOr(fn func(T) (T, error), defaultValue T) {
+func (o *Option[T]) MapOr(fn func(T) (T, error), defaultValue T) {
 	if o.Ok() {
 		value, err := fn(o.Unwrap())
 		if err != nil {
