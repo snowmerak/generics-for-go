@@ -43,6 +43,14 @@ func (r *Result[T]) MapOr(fn func(T) (T, error), defaultValue T) {
 	r.value = defaultValue
 }
 
+func (r *Result[T]) Replace(fn func(T) (T, error)) {
+	r.Map(fn)
+}
+
+func (r *Result[T]) ReplaceOr(fn func(T) (T, error), defaultValue T) {
+	r.MapOr(fn, defaultValue)
+}
+
 func (r *Result[T]) Ok() bool {
 	_, ok := r.value.(error)
 	return !ok
