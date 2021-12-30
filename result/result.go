@@ -20,7 +20,7 @@ func Err[T any](err error) *Result[T] {
 	return &Result[T]{value: err}
 }
 
-func (r *Result[T]) Replace(fn func(T) (T, error)) {
+func (r *Result[T]) Map(fn func(T) (T, error)) {
 	if r.Ok() {
 		v, err := fn(r.Unwrap())
 		if err != nil {
@@ -32,7 +32,7 @@ func (r *Result[T]) Replace(fn func(T) (T, error)) {
 	}
 }
 
-func (r *Result[T]) ReplaceOr(fn func(T) (T, error), defaultValue T) {
+func (r *Result[T]) MapOr(fn func(T) (T, error), defaultValue T) {
 	if r.Ok() {
 		v, err := fn(r.Unwrap())
 		if err == nil {
