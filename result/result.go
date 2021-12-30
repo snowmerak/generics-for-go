@@ -20,22 +20,23 @@ func Err[T any](err error) *Result[T] {
 	return &Result[T]{value: err}
 }
 
-func (r *Result[T]) Replace(fn func(T) *Result[T]) {
+func (r *Result[T]) Replace(fn func(T) (T, error)) {
 	if r.Ok() {
-		n := fn(r.Unwrap())
-		if n.Ok() {
-			r.value = n.Unwrap()
-		} else {
-			r.value = n.Err()
+		v, err := fn(r.Unwrap())
+		if err != nil {
+			r.value = nil
+			return
 		}
+		r.value = v
+		return
 	}
 }
 
-func (r *Result[T]) ReplaceOr(fn func(T) *Result[T], defaultValue T) {
+func (r *Result[T]) ReplaceOr(fn func(T) (T, error), defaultValue T) {
 	if r.Ok() {
-		n := fn(r.Unwrap())
-		if n.Ok() {
-			r.value = n.Unwrap()
+		v, err := fn(r.Unwrap())
+		if err == nil {
+			r.value = v
 			return
 		}
 	}
@@ -55,9 +56,13 @@ func (r *Result[T]) Err() error {
 	return err
 }
 
-func (r *Result[T]) AndThen(fn func(T) *Result[T]) *Result[T] {
+func (r *Result[T]) AndThen(fn func(T) (T, error)) *Result[T] {
 	if r.Ok() {
-		return fn(r.Unwrap())
+		v, err := fn(r.Unwrap())
+		if err != nil {
+			return Failed[T](err)
+		}
+		return Ok(v)
 	}
 	return Failed[T](r.Err())
 }
