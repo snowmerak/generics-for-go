@@ -7,29 +7,25 @@ option is optional value
 ### create
 
 ```go
-func main() {
-    someInt := option.Some(100)
-    noneInt := option.None[int]()
+someInt := option.Some(100)
+noneInt := option.None[int]()
 
-    someString := option.Some("Hello, World!")
-    noneString := option.None[string]()
-}
+someString := option.Some("Hello, World!")
+noneString := option.None[string]()
 ```
 
 ### unwrap
 
 ```go
-func main() {
-    someInt := option.Some(100)
-    noneInt := option.None[int]()
+someInt := option.Some(100)
+noneInt := option.None[int]()
 
-    if someInt.Ok() {
-        fmt.Println(someInt.Unwrap())
-    }
+if someInt.Ok() {
+    fmt.Println(someInt.Unwrap())
+}
 
-    if !noneInt.Ok() {
-        log.Fatal(errors.New("noneInt is empty"))
-    }
+if !noneInt.Ok() {
+    log.Fatal(errors.New("noneInt is empty"))
 }
 ```
 
