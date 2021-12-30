@@ -94,6 +94,8 @@ err: <nil>
 value: 100
 ```
 
+[more](result/readme.md)
+
 ## Option
 
 1. Some(T) Result[T]
@@ -124,3 +126,5 @@ value: hello!
 ok: false
 value: 0
 ```
+
+[more](option/readme.md)
