@@ -43,10 +43,12 @@ func (r *Result[T]) MapOr(fn func(T) (T, error), defaultValue T) {
 	r.value = defaultValue
 }
 
+// must be removed
 func (r *Result[T]) Replace(fn func(T) (T, error)) {
 	r.Map(fn)
 }
 
+// must be removed
 func (r *Result[T]) ReplaceOr(fn func(T) (T, error), defaultValue T) {
 	r.MapOr(fn, defaultValue)
 }
