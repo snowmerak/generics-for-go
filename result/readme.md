@@ -26,14 +26,14 @@ if !errInt.Ok() {
 }
 ```
 
-## replace
+## map
 
 ### when succeed
 
 ```go
 a := result.Ok(100)
 
-a.Replace(func (t int) (int, error)) {
+a.Map(func (t int) (int, error)) {
     return t * 2, nil
 })
 
@@ -51,7 +51,7 @@ if a.Ok() {
 ```go
 a := result.Ok(100)
 
-a.Replace(func (t int) (int, error)) {
+a.Map(func (t int) (int, error)) {
     return -1, errors.New("some error")
 })
 
@@ -64,20 +64,20 @@ if !a.Ok() {
 some error
 ```
 
-## replace or
+## map or
 
 second parameter is default value
 
 ```go
 a := result.Ok(100)
 
-a.ReplaceOr(func (t int) (int, error)) {
+a.MapOr(func (t int) (int, error)) {
     return t * 2, nil
 }, 99)
 
 fmt.Println(a.Unwrap())
 
-a.ReplaceOr(func (t int) (int, error)) {
+a.MapOr(func (t int) (int, error)) {
     return -1, errors.New("some error")
 }, 99)
 
