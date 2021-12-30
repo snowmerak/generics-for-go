@@ -70,11 +70,11 @@ func (r *Result[T]) AndThen(fn func(T) (T, error)) *Result[T] {
 	if r.Ok() {
 		v, err := fn(r.Unwrap())
 		if err != nil {
-			return Failed[T](err)
+			return Err[T](err)
 		}
 		return Ok(v)
 	}
-	return Failed[T](r.Err())
+	return Err[T](r.Err())
 }
 
 func (r *Result[T]) Unwrap() T {
