@@ -23,6 +23,9 @@ func (o *Option[T]) Unwrap() T {
 }
 
 func (o *Option[T]) UnwrapOr(defaultValue T) T {
+	if o == nil {
+		return defaultValue
+	}
 	if o.Ok() {
 		return o.Unwrap()
 	}

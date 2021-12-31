@@ -83,6 +83,9 @@ func (r *Result[T]) Unwrap() T {
 }
 
 func (r *Result[T]) UnwrapOr(defaultValue T) T {
+	if r == nil {
+		return defaultValue
+	}
 	value, ok := r.value.(T)
 	if !ok {
 		return defaultValue
