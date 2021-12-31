@@ -28,17 +28,19 @@ func From[T, R any](list ...any) *result.Result[*Chain[T, R]] {
 		}
 		return result.Success(&Chain[T, R]{list})
 	}
-	in := reflect.TypeOf(list[0]).In(0)
+	typ := reflect.TypeOf(list[0])
+	in := typ.In(0)
 	if in != reflect.TypeOf(new(T)).Elem() {
 		return result.Err[*Chain[T, R]](errors.New("function's parameter type is invalid"))
 	}
-	out := reflect.TypeOf(list[0]).Out(0)
+	out := typ.Out(0)
 	for i := 1; i < len(list); i++ {
-		in = reflect.TypeOf(list[i]).In(0)
+		typ = reflect.TypeOf(list[i])
+		in = typ.In(0)
 		if out != in {
 			return result.Err[*Chain[T, R]](errors.New("function's parameter type is invalid"))
 		}
-		out = reflect.TypeOf(list[i]).Out(0)
+		out = typ.Out(0)
 	}
 	if out != reflect.TypeOf(new(R)).Elem() {
 		return result.Err[*Chain[T, R]](errors.New("function's return type is invalid"))
