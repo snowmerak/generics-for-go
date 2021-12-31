@@ -47,7 +47,7 @@ func From[T, R any](list ...any) *result.Result[*Chain[T, R]] {
 }
 
 func WithResult[T, R any](list ...any) *result.Result[*Chain[*result.Result[T], *result.Result[R]]] {
-	return From[*result.Result[T], *result.Result[R]](list)
+	return From[*result.Result[T], *result.Result[R]](list...)
 }
 
 func (c *Chain[T, R]) Run(param T) R {
