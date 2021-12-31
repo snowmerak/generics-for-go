@@ -46,6 +46,10 @@ func From[T, R any](list ...any) *result.Result[*Chain[T, R]] {
 	return result.Ok(&Chain[T, R]{list})
 }
 
+func WithResult[T, R any](list ...any) *result.Result[*Chain[*result.Result[T], *result.Result[R]]] {
+	return From[*result.Result[T], *result.Result[R]](list)
+}
+
 func (c *Chain[T, R]) Run(param T) R {
 	paramValue := reflect.ValueOf(param)
 	for _, fun := range c.list {
