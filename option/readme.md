@@ -38,8 +38,8 @@ func Add(a *option.Option[int], b *option.Option[int]) int {
 
 func main() {
 	fmt.Println(Add(option.Some(1), option.Some(2)))
-	fmt.Println(Add(option.None[int](), option.Some(2)))
-	fmt.Println(Add(option.None[int](), option.None[int]()))
+	fmt.Println(Add(nil, option.Some(2)))
+	fmt.Println(Add(nil, nil))
 }
 ```
 
