@@ -4,16 +4,8 @@ type Result[T any] struct {
 	value any
 }
 
-func Success[T any](data T) *Result[T] {
-	return &Result[T]{value: data}
-}
-
 func Ok[T any](data T) *Result[T] {
 	return &Result[T]{value: data}
-}
-
-func Failed[T any](err error) *Result[T] {
-	return &Result[T]{value: err}
 }
 
 func Err[T any](err error) *Result[T] {
@@ -41,16 +33,6 @@ func (r *Result[T]) MapOr(fn func(T) (T, error), defaultValue T) {
 		}
 	}
 	r.value = defaultValue
-}
-
-// must be removed
-func (r *Result[T]) Replace(fn func(T) (T, error)) {
-	r.Map(fn)
-}
-
-// must be removed
-func (r *Result[T]) ReplaceOr(fn func(T) (T, error), defaultValue T) {
-	r.MapOr(fn, defaultValue)
 }
 
 func (r *Result[T]) Ok() bool {
