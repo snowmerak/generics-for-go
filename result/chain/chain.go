@@ -4,7 +4,7 @@ import (
 	"errors"
 	"reflect"
 
-	"github.com/snowmerak/generics-for-go/result"
+	"github.com/snowmerak/generics-for-go/v2/result"
 )
 
 type Chain[T, R any] struct {

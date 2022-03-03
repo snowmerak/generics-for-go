@@ -1,6 +1,6 @@
 package sequence
 
-import "github.com/snowmerak/generics-for-go/iterable"
+import "github.com/snowmerak/generics-for-go/v2/iterable"
 
 type Sequence[K comparable, V any] struct {
 	iter         iterable.Iterable[K, V]
