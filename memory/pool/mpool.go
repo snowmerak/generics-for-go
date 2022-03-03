@@ -1,4 +1,4 @@
-package mpool
+package pool
 
 import (
 	"runtime"
