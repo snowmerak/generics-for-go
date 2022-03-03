@@ -9,8 +9,8 @@ type Pointer[T any] struct {
 	value unsafe.Pointer
 }
 
-func NewPointer[T any]() *Pointer[T] {
-	return &Pointer[T]{
+func NewPointer[T any]() Pointer[T] {
+	return Pointer[T]{
 		value: unsafe.Pointer(nil),
 	}
 }
