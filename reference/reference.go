@@ -9,9 +9,15 @@ type Pointer[T any] struct {
 	value unsafe.Pointer
 }
 
-func (p *Pointer[T]) Load() T {
+func NewPointer[T any]() *Pointer[T] {
+	return &Pointer[T]{
+		value: unsafe.Pointer(nil),
+	}
+}
+
+func (p *Pointer[T]) Load() *T {
 	pointer := atomic.LoadPointer(&p.value)
-	return *(*T)(pointer)
+	return (*T)(pointer)
 }
 
 func (p *Pointer[T]) Store(pointer *T) {
