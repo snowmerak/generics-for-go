@@ -23,6 +23,14 @@ func Of[T any](values ...T) *List[T] {
 	return l
 }
 
+func (l *List[T]) Count() int {
+	count := 0
+	for n := l.head; n != nil; n = n.next {
+		count++
+	}
+	return count
+}
+
 func (l *List[T]) Push(value T) {
 	n := &node[T]{
 		value: value,
@@ -147,4 +155,69 @@ func (l *List[T]) FoldRight(fun func(T, T) T, initial T) T {
 		acc = fun(n.value, acc)
 	}
 	return acc
+}
+
+func (l *List[T]) Foreach(fun func(T)) {
+	for n := l.head; n != nil; n = n.next {
+		fun(n.value)
+	}
+}
+
+func (l *List[T]) Contains(comparer func(T, T) bool, value T) bool {
+	for n := l.head; n != nil; n = n.next {
+		if comparer(n.value, value) {
+			return true
+		}
+	}
+	return false
+}
+
+func (l *List[T]) ContainsAll(comparer func(T, T) bool, values ...T) bool {
+	for n := l.head; n != nil; n = n.next {
+		for _, v := range values {
+			if !comparer(n.value, v) {
+				return false
+			}
+		}
+	}
+	return true
+}
+
+func (l *List[T]) Split(fun func(T) bool) (left, right *List[T]) {
+	left = New[T]()
+	right = New[T]()
+	for n := l.head; n != nil; n = n.next {
+		if fun(n.value) {
+			left.Push(n.value)
+		} else {
+			right.Push(n.value)
+		}
+	}
+	return
+}
+
+func (l *List[T]) Get(index int) *T {
+	if index < 0 {
+		return nil
+	}
+	for n := l.head; n != nil; n = n.next {
+		if index == 0 {
+			return &n.value
+		}
+		index--
+	}
+	return nil
+}
+
+func (l *List[T]) Set(index int, value T) {
+	if index < 0 {
+		return
+	}
+	for n := l.head; n != nil; n = n.next {
+		if index == 0 {
+			n.value = value
+			return
+		}
+		index--
+	}
 }
