@@ -9,6 +9,10 @@ func FromSlice[V any](inner []V) Iterable[int, V] {
 	return &Slice[V]{inner, 0}
 }
 
+func Of[V any](values ...V) Iterable[int, V] {
+	return FromSlice(values)
+}
+
 func (s *Slice[V]) Next() (key int, value V, exist bool) {
 	if s.index < len(s.slice) {
 		key = s.index
