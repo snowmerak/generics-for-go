@@ -15,6 +15,14 @@ func New[T any]() *List[T] {
 	return &List[T]{}
 }
 
+func Of[T any](values ...T) *List[T] {
+	l := New[T]()
+	for _, v := range values {
+		l.Push(v)
+	}
+	return l
+}
+
 func (l *List[T]) Push(value T) {
 	n := &node[T]{
 		value: value,
@@ -115,4 +123,28 @@ func (l *List[T]) Filter(fun func(T) bool) {
 			l.tail = n.prev
 		}
 	}
+}
+
+func (l *List[T]) FoldLeft(fun func(T, T) T, initial T) T {
+	var acc T
+	if l.head == nil {
+		return initial
+	}
+	acc = initial
+	for n := l.head; n != nil; n = n.next {
+		acc = fun(acc, n.value)
+	}
+	return acc
+}
+
+func (l *List[T]) FoldRight(fun func(T, T) T, initial T) T {
+	var acc T
+	if l.tail == nil {
+		return initial
+	}
+	acc = initial
+	for n := l.tail; n != nil; n = n.prev {
+		acc = fun(n.value, acc)
+	}
+	return acc
 }
