@@ -1,5 +1,6 @@
 package list
 
+// Clone returns a new List with the same contents as this one.
 func (l *List[T]) Clone() *List[T] {
 	nl := New[T]()
 	if l == nil {
@@ -28,6 +29,7 @@ func (l *List[T]) Clone() *List[T] {
 	return nl
 }
 
+// Count returns the number of elements in the list.
 func (l *List[T]) Count() int {
 	count := 0
 	for n := l.head; n != nil; n = n.next {
@@ -36,6 +38,7 @@ func (l *List[T]) Count() int {
 	return count
 }
 
+// Push adds an element to the end of the list.
 func (l *List[T]) Push(value T) {
 	n := &node[T]{
 		value: value,
@@ -51,6 +54,7 @@ func (l *List[T]) Push(value T) {
 	l.tail = n
 }
 
+// Pop removes and returns the last element of the list.
 func (l *List[T]) Pop() *T {
 	if l.tail == nil {
 		return nil
@@ -68,6 +72,7 @@ func (l *List[T]) Pop() *T {
 	return &n.value
 }
 
+// Unshift adds an element to the beginning of the list.
 func (l *List[T]) Unshift(value T) {
 	n := &node[T]{
 		value: value,
@@ -83,6 +88,7 @@ func (l *List[T]) Unshift(value T) {
 	l.head = n
 }
 
+// Shift removes and returns the first element of the list.
 func (l *List[T]) Shift() *T {
 	if l.head == nil {
 		return nil
@@ -100,6 +106,7 @@ func (l *List[T]) Shift() *T {
 	return &n.value
 }
 
+// Reverse reverses the list.
 func (l *List[T]) Reverse() {
 	if l.head == nil {
 		return
@@ -112,12 +119,14 @@ func (l *List[T]) Reverse() {
 	l.head, l.tail = l.tail, l.head
 }
 
+// Map returns a new List with the result of mapping the elements.
 func (l *List[T]) Map(fun func(T) T) {
 	for n := l.head; n != nil; n = n.next {
 		n.value = fun(n.value)
 	}
 }
 
+// Filter returns a new List with the elements that satisfy the predicate.
 func (l *List[T]) Filter(fun func(T) bool) {
 	for n := l.head; n != nil; n = n.next {
 		if fun(n.value) {
@@ -138,6 +147,7 @@ func (l *List[T]) Filter(fun func(T) bool) {
 	}
 }
 
+// FoldLeft returns the result of folding the elements from first to last.
 func (l *List[T]) FoldLeft(fun func(T, T) T, initial T) T {
 	var acc T
 	if l.head == nil {
@@ -150,6 +160,7 @@ func (l *List[T]) FoldLeft(fun func(T, T) T, initial T) T {
 	return acc
 }
 
+// FoldRight returns the result of folding the elements from last to first.
 func (l *List[T]) FoldRight(fun func(T, T) T, initial T) T {
 	var acc T
 	if l.tail == nil {
@@ -162,12 +173,14 @@ func (l *List[T]) FoldRight(fun func(T, T) T, initial T) T {
 	return acc
 }
 
+// Foreach calls the function for each element in the list.
 func (l *List[T]) Foreach(fun func(T)) {
 	for n := l.head; n != nil; n = n.next {
 		fun(n.value)
 	}
 }
 
+// Contains returns true if the list contains the element.
 func (l *List[T]) Contains(comparer func(T, T) bool, value T) bool {
 	for n := l.head; n != nil; n = n.next {
 		if comparer(n.value, value) {
@@ -177,6 +190,7 @@ func (l *List[T]) Contains(comparer func(T, T) bool, value T) bool {
 	return false
 }
 
+// ContainsAll returns true if the list contains all the elements.
 func (l *List[T]) ContainsAll(comparer func(T, T) bool, values ...T) bool {
 	for n := l.head; n != nil; n = n.next {
 		for _, v := range values {
@@ -188,6 +202,7 @@ func (l *List[T]) ContainsAll(comparer func(T, T) bool, values ...T) bool {
 	return true
 }
 
+// Split splits the list into two lists at the index from given function.
 func (l *List[T]) Split(fun func(T) bool) (left, right *List[T]) {
 	left = New[T]()
 	right = New[T]()
@@ -201,6 +216,7 @@ func (l *List[T]) Split(fun func(T) bool) (left, right *List[T]) {
 	return
 }
 
+// Get returns the element at the given index.
 func (l *List[T]) Get(index int) *T {
 	if index < 0 {
 		return nil
@@ -214,6 +230,7 @@ func (l *List[T]) Get(index int) *T {
 	return nil
 }
 
+// Set sets the element at the given index.
 func (l *List[T]) Set(index int, value T) {
 	if index < 0 {
 		return
