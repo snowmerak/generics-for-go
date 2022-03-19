@@ -6,6 +6,13 @@ import (
 	"sort"
 )
 
+// Clone returns a copy of the slice.
+func (slice Slice[T]) Clone() Slice[T] {
+	ns := make(Slice[T], len(slice))
+	copy(ns, slice)
+	return ns
+}
+
 // Reduce applies a function against an initial and each element in the slice.
 func (slice Slice[T]) Reduce(f func(T, T) T, initial T) T {
 	result := initial
