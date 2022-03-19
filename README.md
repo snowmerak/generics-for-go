@@ -2,6 +2,10 @@
 
 A useful generic codes for go
 
+## godoc
+
+[![Go Reference](https://pkg.go.dev/badge/github.com/snowmerak/generics-for-go/v2.svg)](https://pkg.go.dev/github.com/snowmerak/generics-for-go/v2)
+
 ## types
 
 `types` package is set of generic types.
