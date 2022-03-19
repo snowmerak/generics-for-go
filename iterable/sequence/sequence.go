@@ -1,7 +1,9 @@
+// sequence
 package sequence
 
 import "github.com/snowmerak/generics-for-go/v2/iterable"
 
+// Sequence is a sequence structure based on iterable.
 type Sequence[K comparable, V any] struct {
 	iter         iterable.Iterable[K, V]
 	firstIndex   int
@@ -20,10 +22,12 @@ const (
 	mapOrder    = 1
 )
 
+// New returns a new Sequence with given iterable.
 func New[K comparable, V any](iter iterable.Iterable[K, V]) *Sequence[K, V] {
 	return &Sequence[K, V]{iter, 0, 0, map[K]V{}, []K{}, []func(K, V) bool{}, []func(K, V) (K, V){}, []uint8{}}
 }
 
+// Take returns a Sequence with the first n elements.
 func (s *Sequence[K, V]) Take(number int) *Sequence[K, V] {
 loop:
 	for i := 0; i < number && s.iter.HasNext(); {
@@ -48,6 +52,7 @@ loop:
 	return s
 }
 
+// Drop returns a Sequence without the first n elements.
 func (s *Sequence[K, V]) Drop(number int) *Sequence[K, V] {
 	currentLength := len(s.keys)
 	if currentLength > 0 {
@@ -75,6 +80,7 @@ func (s *Sequence[K, V]) Drop(number int) *Sequence[K, V] {
 	return s
 }
 
+// Map returns a Sequence with the result of mapping the elements.
 func (s *Sequence[K, V]) Map(fn func(K, V) (K, V)) *Sequence[K, V] {
 	s.maps = append(s.maps, fn)
 	s.orders = append(s.orders, mapOrder)
@@ -89,6 +95,7 @@ func (s *Sequence[K, V]) Map(fn func(K, V) (K, V)) *Sequence[K, V] {
 	return s
 }
 
+// Filter returns a Sequence with the result of filtering the elements.
 func (s *Sequence[K, V]) Filter(fn func(K, V) bool) *Sequence[K, V] {
 	s.filters = append(s.filters, fn)
 	s.orders = append(s.orders, filterOrder)
@@ -106,6 +113,7 @@ func (s *Sequence[K, V]) Filter(fn func(K, V) bool) *Sequence[K, V] {
 	return s
 }
 
+// FirstKey returns the first key.
 func (s *Sequence[K, V]) FirstKey() (key K, exist bool) {
 	if len(s.keys) < 1 {
 		exist = false
@@ -116,6 +124,7 @@ func (s *Sequence[K, V]) FirstKey() (key K, exist bool) {
 	return
 }
 
+// FirstValue returns the first value.
 func (s *Sequence[K, V]) FirstValue() (value V, exist bool) {
 	if len(s.keys) < 1 {
 		exist = false
@@ -126,12 +135,14 @@ func (s *Sequence[K, V]) FirstValue() (value V, exist bool) {
 	return
 }
 
+// ToKeySlice returns a slice of keys.
 func (s *Sequence[K, V]) ToKeySlice() []K {
 	keys := make([]K, len(s.keys))
 	copy(keys, s.keys)
 	return keys
 }
 
+// ToValueSlice returns a slice of values.
 func (s *Sequence[K, V]) ToValueSlice() []V {
 	values := make([]V, len(s.keys))
 	for i, k := range s.keys {
@@ -140,6 +151,7 @@ func (s *Sequence[K, V]) ToValueSlice() []V {
 	return values
 }
 
+// ToMap returns a map of keys and values.
 func (s *Sequence[K, V]) ToMap() map[K]V {
 	m := make(map[K]V, len(s.keys)*4/3+1)
 	for _, k := range s.keys {
