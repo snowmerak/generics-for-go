@@ -2,129 +2,26 @@
 
 A useful generic codes for go
 
-## Slice
+## types
 
-1. Map
-2. Reduce
-3. Any
-4. All
-5. BinarySearch
-6. Count
-7. Filter
-8. FilterIndex
-9. FirstOf
-10. FirstIndexOf
-11. LastOf
-12. LastIndexOf
-13. Reverse
-14. Foreach
-15. GroupBy
-16. Max
-17. Min
-18. Random
-19. Shuffle
-20. Sort
-21. Chunk
-22. Zip
-23. JoinToString
+`types` package is set of generic types.
 
-## Set
+more information is [here](types/readme.md).
 
-1. Add
-2. Remove
-3. Contains
-4. FromSlice
-5. FromMapKey
-6. FromMapValue
-7. ToSlice
-8. Union
-9. Intersect
-10. Subtract
-11. Equal
-12. IsSubset
-13. IsSuperset
-14. IsDisjoint
+## syntax
 
-## Table
+`syntax` package is a set of control flow with generic.
 
-1. MapKey
-2. MapValue
-3. Reduce
-4. Any
-5. All
-6. Count
-7. Filter
-8. Foreach
-9. Random
-10. FromSlices
+more information is [here](syntax/readme.md).
 
-## Result
+## iterable
 
-1. Success(T) Result[T]
-2. Failed(error) Result[T]
-3. Result[T].Ok() bool
-4. Result[T].Unwrap() T
-5. Result[T].Err() error
+`iterable` package gives iterable structure with slice or map.
 
-```go
-func main() {
-	a := result.Failed[int](errors.New("new error"))
+more information is [here](iterable/readme.md).
 
-	fmt.Printf("ok: %v\n", a.Ok())
-	fmt.Printf("err: %v\n", a.Err())
-	fmt.Printf("value: %v\n", a.Unwrap())
+## collections
 
-	fmt.Println()
+`collections` package a set of generic collections.
 
-	a = result.Success(100)
-
-	fmt.Printf("ok: %v\n", a.Ok())
-	fmt.Printf("err: %v\n", a.Err())
-	fmt.Printf("value: %v\n", a.Unwrap())
-}
-```
-
-```bash
-ok: false
-err: new error
-value: 0
-
-ok: true
-err: <nil>
-value: 100
-```
-
-[more](result/readme.md)
-
-## Option
-
-1. Some(T) Result[T]
-2. None() Result[T]
-3. Result[T].Ok() bool
-4. Result[T].Unwrap() T
-
-```go
-func main() {
-	a := option.Some("hello!")
-
-	fmt.Printf("ok: %v\n", a.Ok())
-	fmt.Printf("value: %v\n", a.Unwrap())
-
-	fmt.Println()
-
-	a = option.None[string]()
-
-	fmt.Printf("ok: %v\n", a.Ok())
-	fmt.Printf("value: %v\n", a.Unwrap())
-}
-```
-
-```bash
-ok: true
-value: hello!
-
-ok: false
-value: 0
-```
-
-[more](option/readme.md)
+more information is [here](collections/readme.md).
