@@ -1,22 +1,32 @@
 package result
 
 type Result[T any] struct {
-	value any
+	value T
+	err   error
+	isOk  bool
 }
 
 func Ok[T any](data T) *Result[T] {
-	return &Result[T]{value: data}
+	return &Result[T]{
+		value: data,
+		err:   nil,
+		isOk:  true,
+	}
 }
 
 func Err[T any](err error) *Result[T] {
-	return &Result[T]{value: err}
+	return &Result[T]{
+		err:  err,
+		isOk: false,
+	}
 }
 
 func (r *Result[T]) Map(fn func(T) (T, error)) {
-	if r.Ok() {
+	if r.isOk {
 		v, err := fn(r.Unwrap())
 		if err != nil {
-			r.value = nil
+			r.err = err
+			r.isOk = false
 			return
 		}
 		r.value = v
@@ -25,7 +35,7 @@ func (r *Result[T]) Map(fn func(T) (T, error)) {
 }
 
 func (r *Result[T]) MapOr(fn func(T) (T, error), defaultValue T) {
-	if r.Ok() {
+	if r.isOk {
 		v, err := fn(r.Unwrap())
 		if err == nil {
 			r.value = v
@@ -35,21 +45,16 @@ func (r *Result[T]) MapOr(fn func(T) (T, error), defaultValue T) {
 	r.value = defaultValue
 }
 
-func (r *Result[T]) Ok() bool {
-	_, ok := r.value.(error)
-	return !ok
+func (r *Result[T]) IsOk() bool {
+	return r.isOk
 }
 
 func (r *Result[T]) Err() error {
-	err, ok := r.value.(error)
-	if !ok {
-		return nil
-	}
-	return err
+	return r.err
 }
 
 func (r *Result[T]) AndThen(fn func(T) (T, error)) *Result[T] {
-	if r.Ok() {
+	if r.isOk {
 		v, err := fn(r.Unwrap())
 		if err != nil {
 			return Err[T](err)
@@ -60,23 +65,28 @@ func (r *Result[T]) AndThen(fn func(T) (T, error)) *Result[T] {
 }
 
 func (r *Result[T]) Unwrap() T {
-	value, _ := r.value.(T)
-	return value
+	return r.value
 }
 
 func (r *Result[T]) UnwrapOr(defaultValue T) T {
 	if r == nil {
 		return defaultValue
 	}
-	value, ok := r.value.(T)
-	if !ok {
+	if !r.isOk {
 		return defaultValue
 	}
-	return value
+	return r.value
 }
 
-func (r *Result[T]) UnwrapOrPanic(err error) T {
-	if r.Ok() {
+func (r *Result[T]) UnwrapOrPanic() T {
+	if r.isOk {
+		return r.Unwrap()
+	}
+	panic(r.err)
+}
+
+func (r *Result[T]) UnwrapOrCustomPanic(err error) T {
+	if r.isOk {
 		return r.Unwrap()
 	}
 	panic(err)
