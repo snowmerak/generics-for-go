@@ -2,7 +2,21 @@ package zx
 
 import "math/rand"
 
-func MapKey[K comparable, V any](m map[K]V, f func(K, V) K) map[K]V {
+type Table[K comparable, V any] map[K]V
+
+func New[K comparable, V any]() map[K]V {
+	return make(map[K]V)
+}
+
+func FromSlices[K comparable, V any](ks []K, vs []V) map[K]V {
+	r := make(map[K]V)
+	for i := 0; i < len(ks) && i < len(vs); i++ {
+		r[ks[i]] = vs[i]
+	}
+	return r
+}
+
+func (m Table[K, V]) MapKey(f func(K, V) K) map[K]V {
 	r := make(map[K]V)
 	for k, v := range m {
 		r[f(k, v)] = v
@@ -10,7 +24,7 @@ func MapKey[K comparable, V any](m map[K]V, f func(K, V) K) map[K]V {
 	return r
 }
 
-func MapValue[K comparable, V any](m map[K]V, f func(K, V) V) map[K]V {
+func (m Table[K, V]) MapValue(f func(K, V) V) map[K]V {
 	r := make(map[K]V)
 	for k, v := range m {
 		r[k] = f(k, v)
@@ -18,15 +32,23 @@ func MapValue[K comparable, V any](m map[K]V, f func(K, V) V) map[K]V {
 	return r
 }
 
-func Reduce[K comparable, V any, R any](m map[K]V, f func(K, V, R) R, initial R) R {
+func (m Table[K, V]) ReduceKey(f func(K, V) K, initial K) K {
 	r := initial
 	for k, v := range m {
-		r = f(k, v, r)
+		r = f(k, v)
 	}
 	return r
 }
 
-func Any[K comparable, V any](m map[K]V, f func(K, V) bool) bool {
+func (m Table[K, V]) ReduceVale(f func(K, V) V, initial V) V {
+	r := initial
+	for k, v := range m {
+		r = f(k, v)
+	}
+	return r
+}
+
+func (m Table[K, V]) Any(f func(K, V) bool) bool {
 	for k, v := range m {
 		if f(k, v) {
 			return true
@@ -35,7 +57,7 @@ func Any[K comparable, V any](m map[K]V, f func(K, V) bool) bool {
 	return false
 }
 
-func All[K comparable, V any](m map[K]V, f func(K, V) bool) bool {
+func (m Table[K, V]) All(f func(K, V) bool) bool {
 	for k, v := range m {
 		if !f(k, v) {
 			return false
@@ -44,7 +66,7 @@ func All[K comparable, V any](m map[K]V, f func(K, V) bool) bool {
 	return true
 }
 
-func Count[K comparable, V any](m map[K]V, f func(K, V) bool) int {
+func (m Table[K, V]) Count(f func(K, V) bool) int {
 	r := 0
 	for k, v := range m {
 		if f(k, v) {
@@ -54,7 +76,7 @@ func Count[K comparable, V any](m map[K]V, f func(K, V) bool) int {
 	return r
 }
 
-func Filter[K comparable, V any](m map[K]V, f func(K, V) bool) map[K]V {
+func (m Table[K, V]) Filter(f func(K, V) bool) map[K]V {
 	r := make(map[K]V)
 	for k, v := range m {
 		if f(k, v) {
@@ -64,7 +86,7 @@ func Filter[K comparable, V any](m map[K]V, f func(K, V) bool) map[K]V {
 	return r
 }
 
-func Foreach[K comparable, V any](m map[K]V, f func(K, V) (K, V)) map[K]V {
+func (m Table[K, V]) Foreach(f func(K, V) (K, V)) map[K]V {
 	r := make(map[K]V)
 	for k, v := range m {
 		k, v = f(k, v)
@@ -73,7 +95,7 @@ func Foreach[K comparable, V any](m map[K]V, f func(K, V) (K, V)) map[K]V {
 	return r
 }
 
-func Random[K comparable, V any](m map[K]V) (rk K, rv V) {
+func (m Table[K, V]) Random() (rk K, rv V) {
 	l := rand.Intn(len(m))
 	i := 0
 	for k, v := range m {
@@ -83,12 +105,4 @@ func Random[K comparable, V any](m map[K]V) (rk K, rv V) {
 		i++
 	}
 	return rk, rv
-}
-
-func FromSlices[K comparable, V any](ks []K, vs []V) map[K]V {
-	r := make(map[K]V)
-	for i := 0; i < len(ks) && i < len(vs); i++ {
-		r[ks[i]] = vs[i]
-	}
-	return r
 }

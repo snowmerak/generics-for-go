@@ -6,27 +6,6 @@ func New[T comparable]() Set[T] {
 	return make(map[T]struct{})
 }
 
-func Add[T comparable](s Set[T], v T) {
-	s[v] = struct{}{}
-}
-
-func Remove[T comparable](s Set[T], v T) {
-	delete(s, v)
-}
-
-func Contains[T comparable](s Set[T], v T) bool {
-	_, ok := s[v]
-	return ok
-}
-
-func FromSlice[T comparable](s []T) Set[T] {
-	set := Set[T]{}
-	for _, v := range s {
-		set[v] = struct{}{}
-	}
-	return set
-}
-
 func FromMapKey[K comparable, V any](m map[K]V) Set[K] {
 	set := Set[K]{}
 	for k := range m {
@@ -51,7 +30,28 @@ func ToSlice[T comparable](s Set[T]) []T {
 	return slice
 }
 
-func Union[T comparable](s1, s2 Set[T]) Set[T] {
+func (s Set[T]) Add(v T) {
+	s[v] = struct{}{}
+}
+
+func (s Set[T]) Remove(v T) {
+	delete(s, v)
+}
+
+func (s Set[T]) Contains(v T) bool {
+	_, ok := s[v]
+	return ok
+}
+
+func FromSlice[T comparable](s []T) Set[T] {
+	set := Set[T]{}
+	for _, v := range s {
+		set[v] = struct{}{}
+	}
+	return set
+}
+
+func (s1 Set[T]) Union(s2 Set[T]) Set[T] {
 	union := Set[T]{}
 	for k := range s1 {
 		union[k] = struct{}{}
@@ -62,7 +62,7 @@ func Union[T comparable](s1, s2 Set[T]) Set[T] {
 	return union
 }
 
-func Intersect[T comparable](s1, s2 Set[T]) Set[T] {
+func (s1 Set[T]) Intersect(s2 Set[T]) Set[T] {
 	intersection := Set[T]{}
 	for k := range s1 {
 		if _, ok := s2[k]; ok {
@@ -72,7 +72,7 @@ func Intersect[T comparable](s1, s2 Set[T]) Set[T] {
 	return intersection
 }
 
-func Subtract[T comparable](s1, s2 Set[T]) Set[T] {
+func (s1 Set[T]) Subtract(s2 Set[T]) Set[T] {
 	subtract := Set[T]{}
 	for k := range s1 {
 		if _, ok := s2[k]; !ok {
@@ -82,7 +82,7 @@ func Subtract[T comparable](s1, s2 Set[T]) Set[T] {
 	return subtract
 }
 
-func Equal[T comparable](s1, s2 Set[T]) bool {
+func (s1 Set[T]) Equal(s2 Set[T]) bool {
 	if len(s1) != len(s2) {
 		return false
 	}
@@ -94,7 +94,7 @@ func Equal[T comparable](s1, s2 Set[T]) bool {
 	return true
 }
 
-func IsSubset[T comparable](s1, s2 Set[T]) bool {
+func (s1 Set[T]) IsSubset(s2 Set[T]) bool {
 	for k := range s1 {
 		if _, ok := s2[k]; !ok {
 			return false
@@ -103,7 +103,7 @@ func IsSubset[T comparable](s1, s2 Set[T]) bool {
 	return true
 }
 
-func IsSuperset[T comparable](s1, s2 Set[T]) bool {
+func (s1 Set[T]) IsSuperset(s2 Set[T]) bool {
 	for k := range s2 {
 		if _, ok := s1[k]; !ok {
 			return false
@@ -112,7 +112,7 @@ func IsSuperset[T comparable](s1, s2 Set[T]) bool {
 	return true
 }
 
-func IsDisjoint[T comparable](s1, s2 Set[T]) bool {
+func (s1 Set[T]) IsDisjoint(s2 Set[T]) bool {
 	for k := range s1 {
 		if _, ok := s2[k]; ok {
 			return false
