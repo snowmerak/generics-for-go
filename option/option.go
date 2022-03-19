@@ -1,65 +1,72 @@
 package option
 
 type Option[T any] struct {
-	value any
+	value  T
+	isSome bool
 }
 
 func Some[T any](value T) *Option[T] {
-	return &Option[T]{value: value}
+	return &Option[T]{
+		value:  value,
+		isSome: true,
+	}
 }
 
 func None[T any]() *Option[T] {
-	return &Option[T]{value: nil}
+	return &Option[T]{
+		isSome: false,
+	}
 }
 
-func (o *Option[T]) Ok() bool {
-	_, ok := o.value.(T)
-	return ok
+func (o *Option[T]) IsSome() bool {
+	return o.isSome
 }
 
-func (o *Option[T]) Unwrap() T {
-	value, _ := o.value.(T)
-	return value
+func (o *Option[T]) Unwrap() (rs T) {
+	if o.isSome {
+		return o.value
+	}
+	return rs
 }
 
 func (o *Option[T]) UnwrapOr(defaultValue T) T {
 	if o == nil {
 		return defaultValue
 	}
-	if o.Ok() {
+	if o.isSome {
 		return o.Unwrap()
 	}
 	return defaultValue
 }
 
-func (o *Option[T]) Map(fn func(T) (T, error)) {
-	if o.Ok() {
-		value, err := fn(o.Unwrap())
-		if err != nil {
-			o.value = nil
-		} else {
-			o.value = value
+func (o *Option[T]) Map(fn func(T) (T, bool)) {
+	if o.isSome {
+		value, b := fn(o.Unwrap())
+		if !b {
+			o.isSome = false
+			return
 		}
+		o.value = value
 	}
 }
 
-func (o *Option[T]) MapOr(fn func(T) (T, error), defaultValue T) {
-	if o.Ok() {
-		value, err := fn(o.Unwrap())
-		if err != nil {
+func (o *Option[T]) MapOr(fn func(T) (T, bool), defaultValue T) {
+	if o.isSome {
+		value, b := fn(o.Unwrap())
+		if !b {
 			o.value = defaultValue
-		} else {
-			o.value = value
 			return
 		}
+		o.value = value
+		return
 	}
 	o.value = defaultValue
 }
 
-func (o *Option[T]) AndThen(fn func(T) (T, error)) *Option[T] {
-	if o.Ok() {
-		value, err := fn(o.Unwrap())
-		if err != nil {
+func (o *Option[T]) AndThen(fn func(T) (T, bool)) *Option[T] {
+	if o.isSome {
+		value, b := fn(o.Unwrap())
+		if !b {
 			return None[T]()
 		}
 		return Some(value)
