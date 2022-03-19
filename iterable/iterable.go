@@ -1,11 +1,14 @@
+// iterable is an interface that represents an iterable collection of elements.
 package iterable
 
+// iterable is an interface that represents an iterable collection of elements.
 type Iterable[K comparable, V any] interface {
 	Next() (K, V, bool)
 	HasNext() bool
 	Reset()
 }
 
+// ToSlice is a function that converts an iterable collection to a slice.
 func ToSlice[V any](i Iterable[int, V]) []V {
 	var slice []V
 	for i.HasNext() {
@@ -15,6 +18,7 @@ func ToSlice[V any](i Iterable[int, V]) []V {
 	return slice
 }
 
+// ToMap is a function that converts an iterable collection to a map.
 func ToMap[K comparable, V any](i Iterable[K, V]) map[K]V {
 	var m map[K]V
 	for i.HasNext() {
@@ -24,6 +28,7 @@ func ToMap[K comparable, V any](i Iterable[K, V]) map[K]V {
 	return m
 }
 
+// Map is a function that converts an iterable collection to new iterable collection with given function.
 func Map[K, NK comparable, V, NV any](i Iterable[K, V], fn func(K, V) (NK, NV)) Iterable[NK, NV] {
 	length := 0
 	for i.HasNext() {
