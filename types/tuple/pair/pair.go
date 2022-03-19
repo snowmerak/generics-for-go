@@ -9,6 +9,10 @@ func Of[T, R any](a T, b R) Pair[T, R] {
 	return Pair[T, R]{a, b}
 }
 
+func (p Pair[T, R]) Get() (T, R) {
+	return p.a, p.b
+}
+
 func (p Pair[T, R]) GetA() T {
 	return p.a
 }
