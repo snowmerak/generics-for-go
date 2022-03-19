@@ -15,5 +15,3 @@
 ## tuple
 
 `tuple` presents multiple type set.
-
-more information is [here](tuple/readme.md).
