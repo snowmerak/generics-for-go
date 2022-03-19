@@ -1,6 +1,6 @@
 package iterable
 
-// Slice is a iterable structure based slice.
+// Slice is a iterable structure based on slice.
 type Slice[V any] struct {
 	slice []V
 	index int

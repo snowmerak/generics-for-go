@@ -1,6 +1,6 @@
 package iterable
 
-// Table is a iterable structure based map.
+// Table is a iterable structure based on map.
 type Table[K comparable, V any] struct {
 	data  map[K]V
 	keys  []K
