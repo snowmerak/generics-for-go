@@ -1,11 +1,16 @@
+// pipe gives a function that can be used to chain functions together.
 package pipe
 
 import (
 	"reflect"
 )
 
+// errorTypeName is the name of the error type.
 const errorTypeName = "error"
 
+// Link is a function that chaining given functions and return a new function.
+// The new function returns type T.
+// if returns error when calling functions of chain, stop the chain and returns T with error.
 func Link[T any](funs ...interface{}) func(in ...interface{}) T {
 	result := *new(T)
 	resultType := reflect.TypeOf(result)
