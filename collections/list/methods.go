@@ -38,6 +38,11 @@ func (l *List[T]) Count() int {
 	return count
 }
 
+// IsEmpty returns true if the list is empty.
+func (l *List[T]) IsEmpty() bool {
+	return l.head == nil
+}
+
 // Push adds an element to the end of the list.
 func (l *List[T]) Push(value T) {
 	n := &node[T]{
@@ -55,21 +60,21 @@ func (l *List[T]) Push(value T) {
 }
 
 // Pop removes and returns the last element of the list.
-func (l *List[T]) Pop() *T {
+func (l *List[T]) Pop() (rs T) {
 	if l.tail == nil {
-		return nil
+		return rs
 	}
 	n := l.tail
 	if l.head == l.tail {
 		l.head = nil
 		l.tail = nil
-		return &n.value
+		return n.value
 	}
 	l.tail = n.prev
 	l.tail.next = nil
 	n.prev = nil
 	n.next = nil
-	return &n.value
+	return n.value
 }
 
 // Unshift adds an element to the beginning of the list.
@@ -89,21 +94,21 @@ func (l *List[T]) Unshift(value T) {
 }
 
 // Shift removes and returns the first element of the list.
-func (l *List[T]) Shift() *T {
+func (l *List[T]) Shift() (rs T) {
 	if l.head == nil {
-		return nil
+		return rs
 	}
 	n := l.head
 	if l.head == l.tail {
 		l.head = nil
 		l.tail = nil
-		return &n.value
+		return n.value
 	}
 	l.head = n.next
 	l.head.prev = nil
 	n.next = nil
 	n.prev = nil
-	return &n.value
+	return n.value
 }
 
 // Reverse reverses the list.
