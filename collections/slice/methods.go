@@ -211,7 +211,7 @@ func (slice Slice[T]) Chunk(size int) []Slice[T] {
 		if min > len(slice) {
 			min = len(slice)
 		}
-		result = append(result, slice[i:min:min-i])
+		result = append(result, slice[i:min])
 	}
 	return result
 }
@@ -226,4 +226,11 @@ func (slice Slice[T]) JoinToString(sep string) string {
 		result += fmt.Sprintf("%v", v)
 	}
 	return result
+}
+
+// Foreach calls the function f for each element in the slice.
+func (slice Slice[T]) Foreach(f func(T)) {
+	for _, v := range slice {
+		f(v)
+	}
 }
