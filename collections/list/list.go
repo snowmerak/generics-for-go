@@ -3,7 +3,7 @@ package list
 
 import "github.com/snowmerak/generics-for-go/v2/collections"
 
-var _ collections.Clone[*List[int]] = new(List[int])
+var _ collections.Clonable[*List[int]] = new(List[int])
 
 // node a node of list.
 type node[T any] struct {

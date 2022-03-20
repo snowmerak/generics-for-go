@@ -3,7 +3,7 @@ package slice
 
 import "github.com/snowmerak/generics-for-go/v2/collections"
 
-var _ collections.Clone[Slice[int]] = Slice[int]{}
+var _ collections.Clonable[Slice[int]] = Slice[int]{}
 
 // Slice is a []T.
 type Slice[T any] []T
