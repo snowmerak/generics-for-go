@@ -1,6 +1,10 @@
 // set is giving Set structure.
 package set
 
+import "github.com/snowmerak/generics-for-go/v2/collections"
+
+var _ collections.Clone[Set[int]] = Set[int]{}
+
 // Set is a map[T]struct{} with additional methods.
 type Set[T comparable] map[T]struct{}
 

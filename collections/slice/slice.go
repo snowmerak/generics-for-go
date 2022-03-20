@@ -1,6 +1,10 @@
 // slice is a package of Slice.
 package slice
 
+import "github.com/snowmerak/generics-for-go/v2/collections"
+
+var _ collections.Clone[Slice[int]] = Slice[int]{}
+
 // Slice is a []T.
 type Slice[T any] []T
 

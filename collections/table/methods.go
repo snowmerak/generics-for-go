@@ -3,7 +3,7 @@ package table
 import "math/rand"
 
 // Clone returns a new Table with the same contents as this one.
-func (m Table[K, V]) Clone() map[K]V {
+func (m Table[K, V]) Clone() Table[K, V] {
 	n := make(map[K]V)
 	for k, v := range m {
 		n[k] = v
