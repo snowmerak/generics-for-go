@@ -40,19 +40,19 @@ func (m Table[K, V]) MapValue(f func(K, V) V) map[K]V {
 }
 
 // ReduceKey applies a function against an initial and each key in the Table.
-func (m Table[K, V]) ReduceKey(f func(K, V) K, initial K) K {
+func (m Table[K, V]) ReduceKey(f func(K, K) K, initial K) K {
 	r := initial
-	for k, v := range m {
-		r = f(k, v)
+	for k := range m {
+		r = f(r, k)
 	}
 	return r
 }
 
 // ReduceValue applies a function against an initial and each value in the Table.
-func (m Table[K, V]) ReduceVale(f func(K, V) V, initial V) V {
+func (m Table[K, V]) ReduceVale(f func(V, V) V, initial V) V {
 	r := initial
-	for k, v := range m {
-		r = f(k, v)
+	for _, v := range m {
+		r = f(r, v)
 	}
 	return r
 }
