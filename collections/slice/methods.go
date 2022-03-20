@@ -211,6 +211,7 @@ func (slice Slice[T]) Chunk(size int) []Slice[T] {
 		if min > len(slice) {
 			min = len(slice)
 		}
+		// check one more time
 		result = append(result, slice[i:min])
 	}
 	return result
