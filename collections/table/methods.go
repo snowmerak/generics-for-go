@@ -49,7 +49,7 @@ func (m Table[K, V]) ReduceKey(f func(K, K) K, initial K) K {
 }
 
 // ReduceValue applies a function against an initial and each value in the Table.
-func (m Table[K, V]) ReduceVale(f func(V, V) V, initial V) V {
+func (m Table[K, V]) ReduceValue(f func(V, V) V, initial V) V {
 	r := initial
 	for _, v := range m {
 		r = f(r, v)
