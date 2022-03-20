@@ -11,6 +11,16 @@ func (m Table[K, V]) Clone() map[K]V {
 	return n
 }
 
+// Add adds a new element to the Table.
+func (m Table[K, V]) Add(k K, v V) {
+	m[k] = v
+}
+
+// Remove removes the element from the Table.
+func (m Table[K, V]) Remove(k K) {
+	delete(m, k)
+}
+
 // MapKey returns a new Table with the result of applying the function to each key.
 func (m Table[K, V]) MapKey(f func(K, V) K) map[K]V {
 	r := make(map[K]V)
