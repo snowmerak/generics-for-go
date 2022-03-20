@@ -101,3 +101,10 @@ func (s1 Set[T]) IsDisjoint(s2 Set[T]) bool {
 	}
 	return true
 }
+
+//Foreach calls the given function for each element in the Set.
+func (s1 Set[T]) Foreach(f func(T)) {
+	for k := range s1 {
+		f(k)
+	}
+}
