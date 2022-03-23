@@ -47,3 +47,9 @@ A useful generic codes for go
 ### [table](https://pkg.go.dev/github.com/snowmerak/generics-for-go/v2/collections/table)
 
 ### [set](https://pkg.go.dev/github.com/snowmerak/generics-for-go/v2/collections/set)
+
+## test
+
+`test` package gives some useful testing tool.
+
+### [assert](https://pkg.go.dev/github.com/snowmerak/generics-for-go/v2/test/assert)
