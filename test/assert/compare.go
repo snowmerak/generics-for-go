@@ -2,6 +2,7 @@ package assert
 
 import (
 	"fmt"
+	"reflect"
 
 	"golang.org/x/exp/constraints"
 )
@@ -44,4 +45,12 @@ func Equal[T comparable](a, b T) error {
 		return nil
 	}
 	return fmt.Errorf("%v is not equal to %v", a, b)
+}
+
+// DeepEqual is check what a is deep equal to b.
+func DeepEqual[T any](a, b T) error {
+	if reflect.DeepEqual(a, b) {
+		return nil
+	}
+	return fmt.Errorf("%v is not deep equal to %v", a, b)
 }
