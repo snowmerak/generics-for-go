@@ -16,6 +16,8 @@ A useful generic codes for go
 
 ### [pointer](https://pkg.go.dev/github.com/snowmerak/generics-for-go/v2/types/pointer)
 
+### [tuple](https://pkg.go.dev/github.com/snowmerak/generics-for-go/v2/types/tuple)
+
 ### [pair](https://pkg.go.dev/github.com/snowmerak/generics-for-go/v2/types/tuple/pair)
 
 ### [tripple](https://pkg.go.dev/github.com/snowmerak/generics-for-go/v2/types/tuple/tripple)
