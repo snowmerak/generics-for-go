@@ -14,7 +14,7 @@ type Assert struct {
 
 // Of is a constructor of Assert.
 func Of(assertions ...error) Assert {
-	errs := make([]error, len(assertions))
+	errs := make([]error, 0, len(assertions))
 	for _, assertion := range assertions {
 		if assertion != nil {
 			errs = append(errs, assertion)
