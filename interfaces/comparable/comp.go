@@ -14,5 +14,5 @@ const (
 
 // Comparable is interface for comparable objects.
 type Comparable[T any] interface {
-	CompareTo(Comparable[T]) Compared
+	CompareTo(T) Compared
 }
