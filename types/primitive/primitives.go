@@ -11,9 +11,18 @@ type Primitive[T constraints.Ordered] struct {
 	Value T
 }
 
-// Of returns a new primitive type with the given value.
-func Of[T constraints.Ordered](value T) Primitive[T] {
-	return Primitive[T]{value}
+// New returns a new primitive type with the given value.
+func New[T constraints.Ordered](value T) Primitive[T] {
+	return Primitive[T]{Value: value}
+}
+
+// Of returns a new primitive type with the given values.
+func Of[T constraints.Ordered](value ...T) []Primitive[T] {
+	l := make([]Primitive[T], len(value))
+	for i, v := range value {
+		l[i] = Primitive[T]{v}
+	}
+	return l
 }
 
 var _ comparable.Comparable[Primitive[int]] = Primitive[int]{}
