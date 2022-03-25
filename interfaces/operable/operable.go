@@ -1,14 +1,21 @@
 // operable
 package operable
 
-// Arithmetic operations
-// +, -, *, /, %, ^, sqrt
-type Arithmetic[T any] interface {
+// Add is a type that can be added and subtracted to another type.
+type Add[T any] interface {
 	Add(T) T
 	Sub(T) T
+}
+
+// Multiply is a type that can be multiplied with another type.
+type Multiply[T any] interface {
 	Mul(T) T
 	Div(T) T
 	Mod(T) T
+}
+
+// Power is a type that can be raised to a power.
+type Power[T any] interface {
 	Pow(T) T
 	Sqrt(T) T
 }
