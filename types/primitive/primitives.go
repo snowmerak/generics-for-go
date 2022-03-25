@@ -11,13 +11,13 @@ type Primitive[T constraints.Ordered] struct {
 	Value T
 }
 
-// New returns a new primitive type with the given value.
-func New[T constraints.Ordered](value T) Primitive[T] {
+// Of returns a new primitive type with the given value.
+func Of[T constraints.Ordered](value T) Primitive[T] {
 	return Primitive[T]{Value: value}
 }
 
-// Of returns a new primitive type with the given values.
-func Of[T constraints.Ordered](value ...T) []Primitive[T] {
+// OfList returns a new primitive type with the given values.
+func OfList[T constraints.Ordered](value ...T) []Primitive[T] {
 	l := make([]Primitive[T], len(value))
 	for i, v := range value {
 		l[i] = Primitive[T]{v}
