@@ -57,3 +57,8 @@ func DevRem[T constraints.Integer](x, y T) (T, T) {
 func PerfectNumber[T constraints.Integer](n T) T {
 	return PowInt(T(2), n-1) * (PowInt(T(2), n) - 1)
 }
+
+// Fibonacci returns the nth Fibonacci number.
+func Fibonacci[T constraints.Integer](n T) T {
+	return T((1 / math.Sqrt(5)) * (PowFloat((1.0+math.Sqrt(5))/2, float64(n)) - PowFloat((1.0-math.Sqrt(5))/2, float64(n))))
+}
