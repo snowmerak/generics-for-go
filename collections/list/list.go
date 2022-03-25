@@ -1,9 +1,9 @@
 // list is giving double linked list.
 package list
 
-import "github.com/snowmerak/generics-for-go/v2/collections"
+import "github.com/snowmerak/generics-for-go/v2/interfaces/copyable"
 
-var _ collections.Clonable[*List[int]] = new(List[int])
+var _ copyable.Clonable[*List[int]] = new(List[int])
 
 // node a node of list.
 type node[T any] struct {

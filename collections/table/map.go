@@ -1,9 +1,11 @@
 // table is giving Table structure.
 package table
 
-import "github.com/snowmerak/generics-for-go/v2/collections"
+import (
+	"github.com/snowmerak/generics-for-go/v2/interfaces/copyable"
+)
 
-var _ collections.Clonable[Table[int, int]] = Table[int, int]{}
+var _ copyable.Clonable[Table[int, int]] = Table[int, int]{}
 
 // Table is a map[K]V.
 type Table[K comparable, V any] map[K]V

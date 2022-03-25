@@ -1,9 +1,9 @@
 // set is giving Set structure.
 package set
 
-import "github.com/snowmerak/generics-for-go/v2/collections"
+import "github.com/snowmerak/generics-for-go/v2/interfaces/copyable"
 
-var _ collections.Clonable[Set[int]] = Set[int]{}
+var _ copyable.Clonable[Set[int]] = Set[int]{}
 
 // Set is a map[T]struct{} with additional methods.
 type Set[T comparable] map[T]struct{}
