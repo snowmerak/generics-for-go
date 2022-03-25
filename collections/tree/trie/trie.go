@@ -19,5 +19,5 @@ func New[T constraints.Ordered]() *Trie[T] {
 }
 
 func (t *Trie[T]) Insert(x ...T) error {
-
+	return nil
 }
