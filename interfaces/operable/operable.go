@@ -1,5 +1,8 @@
+// operable
 package operable
 
+// Arithmetic operations
+// +, -, *, /, %, ^, sqrt
 type Arithmetic[T any] interface {
 	Add(T) T
 	Sub(T) T
@@ -7,8 +10,11 @@ type Arithmetic[T any] interface {
 	Div(T) T
 	Mod(T) T
 	Pow(T) T
+	Sqrt(T) T
 }
 
+// Biswise operations without shift
+// ~, &, |, ^
 type Bitwise[T any] interface {
 	Not(T) T
 	And(T) T
@@ -16,6 +22,8 @@ type Bitwise[T any] interface {
 	Xor(T) T
 }
 
+// Bitwise shift operations
+// <<, >>, >>>
 type Shift[T any] interface {
 	LeftShift(T) T
 	LogicalShift(T) T
