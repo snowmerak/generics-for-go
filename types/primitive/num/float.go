@@ -1,6 +1,9 @@
 package num
 
 import (
+	"fmt"
+	"strconv"
+
 	"github.com/snowmerak/generics-for-go/v2/interfaces/comparable"
 	"github.com/snowmerak/generics-for-go/v2/interfaces/operable"
 	"github.com/snowmerak/generics-for-go/v2/math"
@@ -8,6 +11,17 @@ import (
 
 type Float32 float32
 type Float64 float64
+
+var _ fmt.Stringer = Float32(0)
+var _ fmt.Stringer = Float32(0)
+
+func (f Float32) String() string {
+	return strconv.FormatFloat(float64(f), 'f', -1, 32)
+}
+
+func (f Float64) String() string {
+	return strconv.FormatFloat(float64(f), 'f', -1, 64)
+}
 
 var _ comparable.Comparable[Float32] = Float32(0)
 var _ comparable.Comparable[Float64] = Float64(0)
