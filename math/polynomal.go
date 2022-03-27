@@ -62,3 +62,8 @@ func PerfectNumber[T constraints.Integer](n T) T {
 func Fibonacci[T constraints.Integer](n T) T {
 	return T((1 / math.Sqrt(5)) * (PowFloat((1.0+math.Sqrt(5))/2, float64(n)) - PowFloat((1.0-math.Sqrt(5))/2, float64(n))))
 }
+
+// Root returns the nth root of x.
+func Root[T constraints.Integer | constraints.Float](n, p T) T {
+	return T(math.Pow(float64(n), 1.0/float64(p)))
+}
