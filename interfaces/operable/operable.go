@@ -23,7 +23,7 @@ type Power[T any] interface {
 // Biswise operations without shift
 // ~, &, |, ^
 type Bitwise[T any] interface {
-	Not(T) T
+	Not() T
 	And(T) T
 	Or(T) T
 	Xor(T) T
