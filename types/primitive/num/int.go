@@ -9,6 +9,9 @@
 package num
 
 import (
+	"fmt"
+	"strconv"
+
 	"github.com/snowmerak/generics-for-go/v2/interfaces/comparable"
 	"github.com/snowmerak/generics-for-go/v2/interfaces/copyable"
 	"github.com/snowmerak/generics-for-go/v2/interfaces/operable"
@@ -25,6 +28,57 @@ type Uint8 uint8
 type Uint16 uint16
 type Uint32 uint32
 type Uint64 uint64
+
+var _ fmt.Stringer = Int(0)
+var _ fmt.Stringer = Int8(0)
+var _ fmt.Stringer = Int16(0)
+var _ fmt.Stringer = Int32(0)
+var _ fmt.Stringer = Int64(0)
+var _ fmt.Stringer = Uint(0)
+var _ fmt.Stringer = Uint8(0)
+var _ fmt.Stringer = Uint16(0)
+var _ fmt.Stringer = Uint32(0)
+var _ fmt.Stringer = Uint64(0)
+
+func (i Int) String() string {
+	return strconv.FormatInt(int64(i), 10)
+}
+
+func (i Int8) String() string {
+	return strconv.FormatInt(int64(i), 10)
+}
+
+func (i Int16) String() string {
+	return strconv.FormatInt(int64(i), 10)
+}
+
+func (i Int32) String() string {
+	return strconv.FormatInt(int64(i), 10)
+}
+
+func (i Int64) String() string {
+	return strconv.FormatInt(int64(i), 10)
+}
+
+func (u Uint) String() string {
+	return strconv.FormatUint(uint64(u), 10)
+}
+
+func (u Uint8) String() string {
+	return strconv.FormatUint(uint64(u), 10)
+}
+
+func (u Uint16) String() string {
+	return strconv.FormatUint(uint64(u), 10)
+}
+
+func (u Uint32) String() string {
+	return strconv.FormatUint(uint64(u), 10)
+}
+
+func (u Uint64) String() string {
+	return strconv.FormatUint(uint64(u), 10)
+}
 
 var _ comparable.Comparable[Int] = Int(0)
 var _ comparable.Comparable[Int8] = Int8(0)
