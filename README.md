@@ -22,6 +22,8 @@ A useful generic codes for go
 
 ### [tripple](https://pkg.go.dev/github.com/snowmerak/generics-for-go/v2/types/tuple/tripple)
 
+### [primitive](https://pkg.go.dev/github.com/snowmerak/generics-for-go/v2/types/primitive)
+
 ## syntax
 
 `syntax` package is a set of control flow with generic.
