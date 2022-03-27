@@ -31,7 +31,7 @@ type Bitwise[T any] interface {
 
 // Bitwise shift operations
 // <<, >>, >>>
-type Shift[T any] interface {
+type BitShift[T any] interface {
 	LeftShift(T) T
 	LogicalShift(T) T
 	ArithmeticShift(T) T
