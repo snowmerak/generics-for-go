@@ -6,6 +6,14 @@ A useful generic codes for go
 
 [![Go Reference](https://pkg.go.dev/badge/github.com/snowmerak/generics-for-go/v2.svg)](https://pkg.go.dev/github.com/snowmerak/generics-for-go/v2)
 
+## interfaces
+
+### [comparable](https://pkg.go.dev/github.com/snowmerak/generics-for-go/v2/interfaces/comparable)
+
+### [copyable](https://pkg.go.dev/github.com/snowmerak/generics-for-go/v2/interfaces/copyable)
+
+### [operable](https://pkg.go.dev/github.com/snowmerak/generics-for-go/v2/interfaces/operable)
+
 ## types
 
 `types` package is set of generic types.
