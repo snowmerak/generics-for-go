@@ -17,7 +17,7 @@ type Multiply[T any] interface {
 // Power is a type that can be raised to a power.
 type Power[T any] interface {
 	Pow(T) T
-	Sqrt(T) T
+	Root(T) T
 }
 
 // Biswise operations without shift
