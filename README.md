@@ -54,6 +54,8 @@ A useful generic codes for go
 
 ### [list](https://pkg.go.dev/github.com/snowmerak/generics-for-go/v2/collections/list)
 
+### [priorityqueue](https://pkg.go.dev/github.com/snowmerak/generics-for-go/v2/collections/priorityqueue)
+
 ### [slice](https://pkg.go.dev/github.com/snowmerak/generics-for-go/v2/collections/slice)
 
 ### [table](https://pkg.go.dev/github.com/snowmerak/generics-for-go/v2/collections/table)
